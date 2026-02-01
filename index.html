@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #ff9acb, #ff4f8b);
+  overflow: hidden;
+  text-align: center;
+  color: #b0004d;
+}
+
+.page {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: fade 0.8s ease;
+}
+
+.active { display: flex; }
+
+@keyframes fade {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+button, input {
+  border: none;
+  border-radius: 50px;
+  padding: 14px 35px;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+button {
+  background: #ff2f7a;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,47,122,0.6);
+}
+
+input {
+  outline: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+#noBtn {
+  background: white;
+  color: #b0004d;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  animation: float 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+
+/* Gifts */
+.gifts {
+  display: flex;
+  gap: 25px;
+}
+
+.gift {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  width: 110px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.gift:hover { transform: scale(1.1); }
+
+.letter {
+  max-width: 420px;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SETTINGS -->
+<script>
+const herName = "Sudeepya";     // 👈 change this
+const secretCode = "17 may";     // 👈 change this
+</script>
+
+<!-- PAGE 1 -->
+<div class="page active" id="askPage">
+  <h1 id="askText"></h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No 🙃</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="yesPage">
+  <h1 id="yesText"></h1>
+  <div class="gifts">
+    <div class="gift" onclick="showLock()">🎁</div>
+    <div class="gift" onclick="alert('A bouquet of roses just for you 🌹')">🌹</div>
+    <div class="gift" onclick="showLetter()">💌</div>
+  </div>
+</div>
+
+<!-- PAGE 3 LOCK -->
+<div class="page" id="lockPage">
+  <h1>Enter the secret 💗</h1>
+  <input id="secretInput" placeholder="Hint: something special to us">
+  <button onclick="unlock()">Unlock 🔐</button>
+</div>
+
+<!-- PAGE 4 LETTER -->
+<div class="page" id="letterPage">
+  <h1>For You 💖</h1>
+  <div class="letter" id="letterText"></div>
+</div>
+
+<!-- PAGE 5 FINAL -->
+<div class="page" id="finalPage">
+  <h1>One last thing… 🌹</h1>
+  <div class="letter">
+    <p>
+      This wasn’t just a Valentine ask.<br><br>
+      It was me choosing you, again.<br><br>
+      Happy Valentine’s Day, <b id="finalName"></b> 💗
+    </p>
+  </div>
+</div>
+
+<script>
+document.getElementById("askText").innerText =
+  `${herName}, will you be my Valentine? 💖`;
+
+document.getElementById("yesText").innerText =
+  `Yay ${herName}, you agreed! 💞`;
+
+document.getElementById("finalName").innerText = herName;
+
+let noClicks = 0;
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+noBtn.onclick = () => {
+  noClicks++;
+  yesBtn.style.transform = `scale(${1 + noClicks * 0.3})`;
+  noBtn.style.transform = `scale(${1 - noClicks * 0.12})`;
+  if (noClicks >= 7) noBtn.style.display = "none";
+};
+
+yesBtn.onclick = () => showPage("yesPage");
+
+function showLock() { showPage("lockPage"); }
+
+function unlock() {
+  const val = document.getElementById("secretInput").value;
+  if (val === secretCode) showPage("finalPage");
+  else alert("Wrong secret 😏 try again");
+}
+
+function showLetter() {
+  showPage("letterPage");
+  typeLetter();
+}
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+/* Typing letter */
+const letter = `
+From the moment you came into my life,
+everything felt warmer and brighter.
+
+On 17th May 2025,
+I proposed with feelings I truly meant.
+
+This little website is just a small way
+of showing how special you are to me.
+
+Always you. 💖
+`;
+
+let i = 0;
+function typeLetter() {
+  const el = document.getElementById("letterText");
+  el.innerHTML = "";
+  i = 0;
+  const t = setInterval(() => {
+    el.innerHTML += letter.charAt(i);
+    i++;
+    if (i >= letter.length) clearInterval(t);
+  }, 40);
+}
+
+/* Hearts */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💗";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = Math.random() * 20 + 10 + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}, 250);
+</script>
+
+</body>
+  </html>
