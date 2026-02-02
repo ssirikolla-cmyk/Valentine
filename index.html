@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sudeepya 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#ffd6ea,#ffeef6);
+  overflow: hidden;
+  text-align: center;
+}
+
+.screen {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.active { display: flex; }
+
+h1,h2,p { color:#b30059; }
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#yes {
+  background:#ff4fa3;
+  color:white;
+  transition: transform 0.3s;
+}
+
+#no {
+  background:#ffc1dd;
+}
+
+.heart {
+  position:absolute;
+  bottom:-20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from {transform:translateY(0);opacity:0;}
+  to {transform:translateY(-120vh);opacity:1;}
+}
+
+.bouquet {
+  width:300px;
+  animation: zoom 2s ease forwards;
+}
+
+@keyframes zoom {
+  from {transform:scale(0.7);opacity:0;}
+  to {transform:scale(1);opacity:1;}
+}
+
+.letter {
+  max-height:60vh;
+  overflow-y:auto;
+  background:#fff0f7;
+  padding:20px;
+  border-radius:20px;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6e4b9c3c0f.mp3" type="audio/mpeg">
+</audio>
+
+<div id="s1" class="screen active">
+  <h1>Sudeepya 💗</h1>
+  <h2>Will you be my Valentine?</h2>
+  <div>
+    <button id="yes" onclick="yesClick()">Yes</button>
+    <button id="no" onclick="noClick()">No</button>
+  </div>
+</div>
+
+<div id="s2" class="screen">
+  <h1>YAY 💕</h1>
+  <p>You chose yes… every time, in every universe.</p>
+  <button onclick="showBouquet()">Open Gift 🎁</button>
+</div>
+
+<div id="s3" class="screen">
+  <h2>This is for you 🌸</h2>
+  <svg class="bouquet" viewBox="0 0 300 420">
+    <path d="M40 190 L150 410 L260 190 Z" fill="#f4b6d8"/>
+    <path d="M60 190 L150 380 L240 190 Z" fill="#ffd6e9"/>
+    <rect x="120" y="300" width="60" height="20" rx="10" fill="#ff7eb6"/>
+    <g fill="#ff9ccf">
+      <circle cx="100" cy="170" r="26"/>
+      <circle cx="150" cy="150" r="30"/>
+      <circle cx="200" cy="170" r="26"/>
+      <circle cx="120" cy="200" r="28"/>
+      <circle cx="150" cy="185" r="32"/>
+      <circle cx="180" cy="200" r="28"/>
+    </g>
+  </svg>
+  <p>I can’t give you gifts now…<br>
+  but when you come back to India,<br>
+  I promise one special gift 💋</p>
+  <button onclick="showLetter()">One last thing 💌</button>
+</div>
+
+<div id="s4" class="screen">
+  <h2>My Letter to You</h2>
+  <div class="letter">
+    <p>
+Sudeepya,<br><br>
+
+From the very beginning, you became a place my heart learned to feel safe in.
+There were moments we shared that never needed the world to know — just us.
+When you went to your grandfather’s house, somehow distance never mattered.
+What mattered was that we chose each other quietly, sincerely.
+
+The sleepovers, the laughs, the silence that still felt full — those memories
+stay with me more than words can explain. And when you told me you were leaving
+for the USA on September 25, I won’t lie… it broke me. I cried more than I ever
+admitted. But loving you means letting you grow, even when it hurts.
+
+Now we don’t talk as much. Life changed. Timezones changed.
+But feelings don’t disappear just because things get quiet.
+I still choose you. I still remember May 17, 2025 — the day I chose courage.
+
+This page is small compared to what I feel.
+But it’s honest. Just like us.
+
+Always,
+Me 💗
+    </p>
+  </div>
+</div>
+
+<script>
+let size=1;
+function noClick(){
+  document.getElementById("yes").style.transform=`scale(${size+=0.2})`;
+}
+function yesClick(){
+  s1.classList.remove("active");
+  s2.classList.add("active");
+}
+function showBouquet(){
+  s2.classList.remove("active");
+  s3.classList.add("active");
+}
+function showLetter(){
+  s3.classList.remove("active");
+  s4.classList.add("active");
+}
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💗";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},300);
+</script>
+
+</body>
+</html>
